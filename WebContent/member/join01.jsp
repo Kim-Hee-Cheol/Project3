@@ -500,5 +500,5 @@
 	
 	<%@ include file="../include/footer.jsp" %>
 	</center>
- </body>
+</body>
 </html>

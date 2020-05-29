@@ -7,11 +7,9 @@
 function DaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            
             var addr = ''; // 주소 변수
             var extraAddr = ''; // 참고항목 변수
 
-           
             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                 addr = data.roadAddress;
             } else { // 사용자가 지번 주소를 선택했을 경우(J)
@@ -38,7 +36,6 @@ function DaumPostcode() {
             } else {
                 document.getElementById("extraAddress").value = '';
             }
-
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('postcode').value = data.zonecode;
             document.getElementById("address").value = addr;
@@ -50,29 +47,22 @@ function DaumPostcode() {
 
 $(function(){
     $('#pwd1').keyup(function(){
-        
         $('#pwd2').val("");
-        
         $('#msg').text("");
     });
 
-   
     $('#pwd2').keyup(function(){
-        
         var compareStr1= $('#pwd1').val();
         var compareStr2= $('#pwd2').val();
 
         if(compareStr1==compareStr2){
-           
             $('#msg').html('<b style="color:red;">암호가 일치합니다.</b>');
         }
         else{
-            //암호 일치하지 않으면 검은색
             $('#msg').html('<b>암호가 틀립니다.</b>').css('color','black');
         }
     });
 	
-   
     $('#last_email_check2').change(function(){
         var text = $('#last_email_check2 option:selected').text(); 
         var value = $('#last_email_check2 option:selected').val();
@@ -92,14 +82,11 @@ $(function(){
 });
 </script>
 <body>
-
-	<form name="frm" onsubmit="return isValidate(this);">
+	<form name="frm" action="joinProcess.jsp" onsubmit="return isValidate(frm);">
 	<center>
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
-
 		<img src="../images/member/sub_image.jpg" id="main_visual" />
-
 		<div class="contents_box">
 			<div class="left_contents">
 				<%@ include file = "../include/member_leftmenu.jsp" %>
@@ -109,7 +96,6 @@ $(function(){
 					<img src="../images/join_tit.gif" alt="회원가입" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;멤버쉽&nbsp;>&nbsp;회원가입<p>
 				</div>
-
 				<p class="join_title"><img src="../images/join_tit03.gif" alt="회원정보입력" /></p>
 				<table cellpadding="0" cellspacing="0" border="0" class="join_box">
 					<colgroup>
@@ -122,19 +108,16 @@ $(function(){
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit002.gif" /></th>
-						<td><input type="text" name="id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(frm);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
+						<td><input type="text" name="user_id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(frm);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit003.gif" /></th>
-						<td><input type="password" name="pass" id="pwd1" value="" class="join_input" />&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합</span></td>
+						<td><input type="password" name="user_pw" id="pwd1" value="" class="join_input" />&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합</span></td>
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit04.gif" /></th>
-						<td><input type="password" name="pass2" id="pwd2" value="" class="join_input" /><span id="msg"></span></td>
+						<td><input type="password" name="user_pw2" id="pwd2" value="" class="join_input" /><span id="msg"></span></td>
 					</tr>
-
-					
-
 					<tr>
 						<th><img src="../images/join_tit06.gif" /></th>
 						<td>
@@ -153,19 +136,16 @@ $(function(){
 					<tr>
 						<th><img src="../images/join_tit08.gif" /></th>
 						<td>
- 
-	<input type="text" id="email_1" style="width:100px;height:20px;border:solid 1px #dadada;" value="" /> @ 
-	<input type="text" id="email_2" style="width:150px;height:20px;border:solid 1px #dadada;" value="" readonly />
-	<select name="last_email_check2" class="pass" id="last_email_check2" >
-		<option selected="" value="">선택해주세요</option>
-		<option value="direct" >직접입력</option>
-		<option value="hanmail.net" >hanmail.net</option>
-		<option value="google.com">google.com</option>
-		<option value="nate.com" >nate.com</option>
-		<option value="naver.com" >naver.com</option>
-		<option value="paran.com" >paran.com</option>
-	</select>
-	 
+							<input type="text" id="email_1" name="email_1" style="width:100px;height:20px;border:solid 1px #dadada;" value="" /> @ 
+							<input type="text" id="email_2" name="email_2" style="width:150px;height:20px;border:solid 1px #dadada;" value="" readonly />
+							<select name="last_email_check2" class="pass" id="last_email_check2" >
+								<option selected="" value="">선택해주세요</option>
+								<option value="direct" >직접입력</option>
+								<option value="hanmail.net" >hanmail.net</option>
+								<option value="google.com">google.com</option>
+								<option value="nate.com" >nate.com</option>
+								<option value="naver.com" >naver.com</option>
+							</select>
 						<input type="checkbox" name="open_email" value="1">
 						<span>이메일 수신동의</span></td>
 					</tr>
@@ -180,9 +160,9 @@ $(function(){
 						</td>
 					</tr>
 				</table>
-
 				<p style="text-align:center; margin-bottom:20px">
-				<a href="javascript:frm.submit();"><img src="../images/btn01.gif" /></a>&nbsp;&nbsp;
+				
+				<input type ="image" src="../images/btn01.gif" />&nbsp;&nbsp;
 				<a href="join01.jsp"><img src="../images/btn02.gif" /></a></p>
 				
 			</div>
@@ -197,56 +177,67 @@ $(function(){
 <script>
 function id_check_person(frm){
 	
-	if(frm.id.value==""){
+	if(frm.user_id.value==""){
         alert("아이디를 입력 후 중복확인을 누르세요");
-        frm.id.focus();
+        frm.user_id.focus();
     }
     else{
     	
     }
 }
 
-var isValidate = function(frm){
-	if(frm.id.value==''){
+function isValidate(frm){
+	if(frm.name.value==""){
+		alert('이름을 입력하세요');
+		frm.name.focus();
+		return false;
+	}
+	
+	if(frm.user_id.value==""){
         alert('아이디를 입력하세요');
         frm.id.focus();
         return false;
     }
-	var idcheck = /^[a-zA-Z0-9]{4,12}$/;
-	if(!idcheck.test(id)) {
-		alert("4자이상 12자이내의 영문/숫자만 입력하세요");
-		frm.id.focus();
-	}
 	
-    if(!frm.pass.value || !frm.pass2.value){
+    if(frm.user_pw.value=="" || frm.user_pw2.value==""){
         alert('패스워드를 입력하세요');
         return false;
     }
-	
-  
-    
-    var passcheck = /^[a-zA-Z0-9]{4,12}$/;
-	if(!passcheck.test(id)) {
-		alert("4자이상 12자이내의 영문/숫자만 입력하세요");
-		frm.pass.focus();
-	}
-    
-    if(!frm.tel1.value || !frm.tel2.value || !frm.tel3.value){
+   
+    if(frm.tel1.value=="" || frm.tel2.value=="" || frm.tel3.value==""){
     	alert("전화번호를 입력하세요");
     	return false;
     }
-    if(!frm.mobile1.value || !frm.mobile2.value || !frm.mobile3.value){
+    
+    if(frm.mobile1.value=="" || frm.mobile2.value=="" || frm.mobile3.value==""){
     	alert("핸드폰번호를 입력하세요");
     	return false;
     }
     
-    if(!frm.email_1.value || !frm.email_2.value){
+    if(frm.email_1.value=="" || frm.email_2.value==""){
     	alert("이메일을 입력하세요");
     	return false;
     }
-    if(frm.zip1.value=="" || frm.addr1.value=="" || frm.addr2.value==""){
+    
+    if(frm.zip1.value=="" || frm.addr1.value=="" || frm.addr2.value=="" || frm.addr3.value==""){
     	alert("우편번호를 입력하세요");
     	return false;
     }
+    
+    var passcheck = /^[a-zA-Z0-9]{4,12}$/;
+	if(!passcheck.test(user_pw)) {
+		alert("4자이상 12자이내의 영문/숫자만 입력하세요");
+		frm.user_pw.focus();
+		return false;
+	}
+	
+	 var idcheck = /^[a-zA-Z0-9]{4,12}$/;
+		if(!idcheck.test(user_id)) {
+			alert("4자이상 12자이내의 영문/숫자만 입력하세요");
+			frm.user_id.focus();
+			return false;
+		}
+    
+    
 }
 </script>

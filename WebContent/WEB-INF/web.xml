@@ -13,6 +13,17 @@
   	<url-pattern>/main/main.do</url-pattern>
   </servlet-mapping>
   
+  <!-- 초기화 파라미터 -->
+  <!-- 마리아DB 드라이버와 연결정보 -->
+  <context-param>
+  	<param-name>MariaJDBCDriver</param-name>
+  	<param-value>org.mariadb.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>MariaConnectURL</param-name>
+  	<param-value>jdbc:mariadb://127.0.0.1:3306/suamil_db</param-value>
+  </context-param>
+  
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
