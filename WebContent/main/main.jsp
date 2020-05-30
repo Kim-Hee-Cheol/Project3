@@ -12,6 +12,20 @@
 </style>
 </head>
 <body>
+	<script>
+	function loginValidate(fn){
+		if(!fn.user_id.value){
+			alert("아이디를 입력하세요");
+			fn.user_id.focus();
+			return false;
+		}
+		if(fn.user_pw.value==""){
+			alert("패스워드를 입력하세요");
+			fn.user_pw.focus();
+			return false;
+		}
+	}
+	</script>
 <center>
 	<div id="wrap">
 		<%@ include file="../include/top.jsp"%>
@@ -24,6 +38,8 @@
 			<div class="main_con_left">
 				<p class="main_title" style="border:0px; margin-bottom:0px;"><img src="../images/main_title01.gif" alt="로그인 LOGIN" /></p>
 				<div class="login_box">
+<% if(session.getAttribute("USER_ID")==null){ %>
+				<form action="../member/loginProcess.jsp" method="post" name="loginFrm" onsubmit="return loginValidate(this);">	
 					<table cellpadding="0" cellspacing="0" border="0">
 						<colgroup>
 							<col width="45px" />
@@ -32,27 +48,29 @@
 						</colgroup>
 						<tr>
 							<th><img src="../images/login_tit01.gif" alt="아이디" /></th>
-							<td><input type="text" name="" value="" class="login_input" /></td>
-							<td rowspan="2"><input type="image" src="../images/login_btn01.gif" alt="로그인" /></td>
+							<td><input type="text" name="user_id" value="" class="login_input" tabindex="1" /></td>
+							<td rowspan="2"><input type="image" src="../images/login_btn01.gif" alt="로그인" tabindex="3" /></td>
 						</tr>
 						<tr>
-							<th><img src="../images/login_tit02.gif" alt="패스워드" /></th>
-							<td><input type="text" name="" value="" class="login_input" /></td>
+							<th><img src="../images/login_tit02.gif" alt="패스워드"  /></th>
+							<td><input type="password" name="user_pw" value="" class="login_input" tabindex="2"/></td>
 						</tr>
 					</table>
+					</form>
 					<p>
-						<input type="checkbox" name="" value="" /><img src="../images/login_tit03.gif" alt="저장" />
+						<input type="checkbox" name="" value="" tabindex="4"/><img src="../images/login_tit03.gif" alt="저장"  />
 						<a href="../member/id_pw.jsp"><img src="../images/login_btn02.gif" alt="아이디/패스워드찾기" /></a>
 						<a href="../member/join01.jsp"><img src="../images/login_btn03.gif" alt="회원가입" /></a>
 					</p>
 					 
 					<!-- 로그인 후 -->
-					<!-- <p style="padding:10px 0px 10px 10px"><span style="font-weight:bold; color:#333;">000님,</span> 반갑습니다.<br />로그인 하셨습니다.</p>
+<% } else { %>
+					<p style="padding:10px 0px 10px 10px"><span style="font-weight:bold; color:#333;"><%=session.getAttribute("USER_NAME") %> 회원님,</span> 반갑습니다.<br />로그인 하셨습니다.</p>
 					<p style="text-align:right; padding-right:10px;">
 						<a href=""><img src="../images/login_btn04.gif" /></a>
-						<a href=""><img src="../images/login_btn05.gif" /></a>
-					</p> -->
-			 
+						<a href="../member/logout.jsp"><img src="../images/login_btn05.gif" /></a>
+					</p>
+<% } %>				 
 				</div>
 			</div>
 			<div class="main_con_center">

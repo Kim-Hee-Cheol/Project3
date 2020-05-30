@@ -41,7 +41,7 @@
 	if(affected==1){
 %>
 <script>
-	alert("회원가입에 성공하셨습니다.");
+	alert("회원이 되신걸 환영합니다!!");
 </script>
 <% 
 		response.sendRedirect("../main/main.jsp");
@@ -50,6 +50,5 @@
 <script>
 	history.go(-1);
 </script>
+
 <% } %>
-
-

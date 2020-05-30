@@ -50,10 +50,14 @@
 					<area shape="rect" coords="560,352,665,376" href="../community/sub01.jsp">
 					<area shape="rect" coords="53,561,141,584" href="../volunteer/sub01.jsp">
 					<area shape="rect" coords="53,594,147,615" href="../volunteer/sub02.jsp">
+<% if(session.getAttribute("USER_ID")==null){ %>
 					<area shape="rect" coords="305,563,373,584" href="../member/login.jsp">
 					<area shape="rect" coords="304,594,374,617" href="../member/join01.jsp">
 					<area shape="rect" coords="305,625,433,653" href="../member/id_pw.jsp">
 					<area shape="rect" coords="304,659,383,684" href="../member/sitemap.jsp">
+<% } else { %>
+					<area shape="rect" coords="304,659,383,684" href="../member/sitemap.jsp">
+<% } %>	
 				</map>
                 </div>
 		  </div>

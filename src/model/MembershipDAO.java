@@ -144,7 +144,7 @@ public class MembershipDAO {
 				if(rs.next()) {
 					//true를 반환했다면 결과셋 있음
 					maps.put("user_id",rs.getString(1));
-					maps.put("user_pw",rs.getString("2"));
+					maps.put("user_pw",rs.getString(2));
 					maps.put("name",rs.getString("name"));
 				}
 				else {

@@ -108,7 +108,7 @@ $(function(){
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit002.gif" /></th>
-						<td><input type="text" name="user_id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(frm);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
+						<td><input type="text" name="user_id" id="id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(frm);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit003.gif" /></th>
@@ -152,11 +152,11 @@ $(function(){
 					<tr>
 						<th><img src="../images/join_tit09.gif" /></th>
 						<td>
-						<input type="text" id="postcode" name="zip1"  class="join_input" style="width:100px;" />
+						<input type="text" id="postcode" name="zip1"  class="join_input" style="width:100px;" readonly />
 						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="address" name="addr1" value="주소"  class="join_input" style="width:550px; margin-top:5px;" /><br>
-						<input type="text" id="detailAddress" name="addr2" value="상세주소"  class="join_input" style="width:550px; margin-top:5px;" />
-						<input type="text" id="extraAddress" name="addr3" value="참고항목"  class="join_input" style="width:550px; margin-top:5px;" />
+						<input type="text" id="address" name="addr1" value="주소"  class="join_input" onfocus="addFocus(1,this);" onblur="addFocus(2,this);" style="width:550px; margin-top:5px;" /><br>
+						<input type="text" id="detailAddress" name="addr2" value="상세주소"  class="join_input" onfocus="detailaddFocus(1,this);" onblur="detailaddFocus(2,this);" style="width:550px; margin-top:5px;" />
+						<input type="text" id="extraAddress" name="addr3" value="참고항목"  class="join_input" onfocus="refFocus(1,this);" onblur="refFocus(2,this);" style="width:550px; margin-top:5px;" />
 						</td>
 					</tr>
 				</table>
@@ -175,8 +175,46 @@ $(function(){
 	</form>
  </body>
 <script>
+function addFocus(flag,obj){
+    if(flag==1){//포커스를 얻었을 때
+        if(obj.value=="주소"){
+            obj.value = "";
+        }
+    }
+    else if(flag==2){//포커스를 잃었을 때
+        if(obj.value==""){
+            obj.value="주소";
+        }
+    }
+}
+
+function detailaddFocus(flag,obj){
+    if(flag==1){//포커스를 얻었을 때
+        if(obj.value=="상세주소"){
+            obj.value = "";
+        }
+    }
+    else if(flag==2){//포커스를 잃었을 때
+        if(obj.value==""){
+            obj.value="상세주소";
+        }
+    }
+}
+
+function refFocus(flag,obj){
+    if(flag==1){//포커스를 얻었을 때
+        if(obj.value=="참고항목"){
+            obj.value = "";
+        }
+    }
+    else if(flag==2){//포커스를 잃었을 때
+        if(obj.value==""){
+            obj.value="참고항목";
+        }
+    }
+}
+
 function id_check_person(frm){
-	
 	if(frm.user_id.value==""){
         alert("아이디를 입력 후 중복확인을 누르세요");
         frm.user_id.focus();
@@ -187,6 +225,7 @@ function id_check_person(frm){
 }
 
 function isValidate(frm){
+	
 	if(frm.name.value==""){
 		alert('이름을 입력하세요');
 		frm.name.focus();
@@ -203,6 +242,11 @@ function isValidate(frm){
         alert('패스워드를 입력하세요');
         return false;
     }
+    
+	if (frm.user_pw.value != frm.user_pw2.value) {
+		alert("입력한 두 개의 비밀번호가 서로  일치하지 않습니다.");
+		return false;
+	}
    
     if(frm.tel1.value=="" || frm.tel2.value=="" || frm.tel3.value==""){
     	alert("전화번호를 입력하세요");
@@ -214,6 +258,7 @@ function isValidate(frm){
     	return false;
     }
     
+    
     if(frm.email_1.value=="" || frm.email_2.value==""){
     	alert("이메일을 입력하세요");
     	return false;
@@ -224,20 +269,29 @@ function isValidate(frm){
     	return false;
     }
     
-    var passcheck = /^[a-zA-Z0-9]{4,12}$/;
-	if(!passcheck.test(user_pw)) {
-		alert("4자이상 12자이내의 영문/숫자만 입력하세요");
-		frm.user_pw.focus();
+    
+  	//아이디 유효성 검사
+    var UserId = document.frm.user_id;
+    if(UserId.value.length<4 && UserId.value.length>12) {
+    	alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
+		return false;
+    }
+
+    if(!UserId.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
+        alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
 		return false;
 	}
-	
-	 var idcheck = /^[a-zA-Z0-9]{4,12}$/;
-		if(!idcheck.test(user_id)) {
-			alert("4자이상 12자이내의 영문/숫자만 입력하세요");
-			frm.user_id.focus();
-			return false;
-		}
     
     
+    //비밀번호 유효성 검사
+    var UserPassword = document.frm.user_pw;
+    if(UserPassword.value.length<4 && UserPassword.value.length>12) {
+    	alert("비밀번호는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
+		return false;
+    }
+    if(!UserPassword.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
+        alert("비밀번호는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
+        return false;
+    }
 }
 </script>

@@ -6,7 +6,6 @@
 <body>
 	<script>
 	function loginValidate(fn){
-		alert("출력");
 		if(!fn.user_id.value){
 			alert("아이디를 입력하세요");
 			fn.user_id.focus();
@@ -35,23 +34,23 @@
 					<img src="../images/login_title.gif" alt="인사말" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;멤버쉽&nbsp;>&nbsp;로그인<p>
 				</div>
-<%
-//로그인 전인거나 로그인에 실패했을 때 출력되는 내용
-if(session.getAttribute("USER_ID")==null){
-%>
-				<form action="LoginProcess.jsp" method="post" name="loginFrm" onsubmit="return loginValidate(this);">
+	<%
+	//로그인 전인거나 로그인에 실패했을 때 출력되는 내용
+	if(session.getAttribute("USER_ID")==null){
+	%>
+				<form action="loginProcess.jsp" method="post" name="loginFrm" onsubmit="return loginValidate(this);">
 					<div class="login_box01">
 						<img src="../images/login_tit.gif" style="margin-bottom:30px;" />
 						<ul>
 							<li><img src="../images/login_tit001.gif" alt="아이디" style="margin-right:15px;" /><input type="text" name="user_id" value="" class="login_input01" /></li>
-							<li><img src="../images/login_tit002.gif" alt="비밀번호" style="margin-right:15px;" /><input type="text" name="user_pw" value="" class="login_input01" /></li>
+							<li><img src="../images/login_tit002.gif" alt="비밀번호" style="margin-right:15px;" /><input type="password" name="user_pw" value="" class="login_input01" /></li>
 						</ul>
-						
-						<input type ="image" src="../images/login_btn.gif" class="login_btn01" href="../main/main.jsp"/>
+						<input type ="image" src="../images/login_btn.gif" class="login_btn01"/>
 					</div>
 				</form>
-				<p style="text-align:center; margin-bottom:50px;"><a href=""><img src="../images/login_btn02.gif" alt="아이디/패스워드찾기" /></a>&nbsp;
-				<a href=""><img src="../images/login_btn03.gif" alt="회원가입" /></a></p>
+				
+				<p style="text-align:center; margin-bottom:50px;"><a href="id_pw.jsp"><img src="../images/login_btn02.gif" alt="아이디/패스워드찾기" /></a>&nbsp;
+				<a href="join01.jsp"><img src="../images/login_btn03.gif" alt="회원가입" /></a></p>
 			</div>
 		</div>
 		<%@ include file="../include/quick.jsp" %>
@@ -59,7 +58,8 @@ if(session.getAttribute("USER_ID")==null){
 	
 	<%@ include file="../include/footer.jsp" %>
 	
-<% }else{ %>
+	<% }else{ %>
+
 	<!-- 로그인에 성공했을때 출력되는 화면 -->
 	<table border='1'>
 		<tr>
@@ -71,11 +71,11 @@ if(session.getAttribute("USER_ID")==null){
 				<br />
 				즐거운 시간 보내세요 ^^*
 				<br />
-				<a href="Logout.jsp">[로그아웃]</a>
+				<a href="logout.jsp">[로그아웃]</a>
 			</td>
 		</tr>
 	</table>
-<% } %>
+	<% } %>
 	</center>
 </body>
 </html>
