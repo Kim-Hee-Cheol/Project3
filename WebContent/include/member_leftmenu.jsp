@@ -3,9 +3,10 @@
 <img src="../images/member/left_title.gif" alt="센터소개 member Introduction" class="left_title" />
 				
  
-<object type="application/x-shockwave-flash" data="../swf/submenu08.swf" width="152" height="255">
+<!-- <object type="application/x-shockwave-flash" data="../swf/submenu08.swf" width="152" height="255">
 	<param name="wmode" value="transparent" />
-</object>  
+</object>  --> 
+
 <img src="../images/menu/8.jpg" alt="" usemap="#LNB"/>
 <map name="LNB">
 <% if(session.getAttribute("USER_ID")==null){ %>

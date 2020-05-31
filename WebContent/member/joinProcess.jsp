@@ -40,15 +40,15 @@
 	int affected = dao.joinMember(dto);
 	if(affected==1){
 %>
-<script>
+<script type="text/javascript">
 	alert("회원이 되신걸 환영합니다!!");
+	location.href="../main/main.jsp";
 </script>
 <% 
-		response.sendRedirect("../main/main.jsp");
+		//response.sendRedirect("../main/main.jsp");   
 	} else{
 %>
 <script>
 	history.go(-1);
 </script>
-
 <% } %>

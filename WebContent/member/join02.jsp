@@ -215,17 +215,31 @@ function refFocus(flag,obj){
 }
 
 function id_check_person(frm){
-	if(frm.user_id.value==""){
-        alert("아이디를 입력 후 중복확인을 누르세요");
-        frm.user_id.focus();
+	var s_width = window.screen.width;
+    var s_height = window.screen.height;
+    var leftVar = (s_width/2) - (500/2);
+    var topVar = (s_height/2) - (300/2);
+	
+
+    var UserId = document.frm.user_id;
+    if(UserId.value.length<4 && UserId.value.length>12) {
+    	alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
+		return false;
     }
+    if(!UserId.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
+        alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
+		return false;
+	}
     else{
-    	
+        //중복확창을 띄울 때 입력한 아이디를 파라미터로 전달한다.
+        window.open("idOverlap.jsp?user_id="+frm.user_id.value,
+                "idover", "width=500, height=300, left=" + leftVar + ", top =" + topVar);
     }
+	
+	
 }
 
 function isValidate(frm){
-	
 	if(frm.name.value==""){
 		alert('이름을 입력하세요');
 		frm.name.focus();
@@ -268,20 +282,6 @@ function isValidate(frm){
     	alert("우편번호를 입력하세요");
     	return false;
     }
-    
-    
-  	//아이디 유효성 검사
-    var UserId = document.frm.user_id;
-    if(UserId.value.length<4 && UserId.value.length>12) {
-    	alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
-		return false;
-    }
-
-    if(!UserId.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~,-])|([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
-        alert("아이디는 4자 이상 12자 이내의 영문/숫자/특수문자 조합으로 입력해주세용");
-		return false;
-	}
-    
     
     //비밀번호 유효성 검사
     var UserPassword = document.frm.user_pw;

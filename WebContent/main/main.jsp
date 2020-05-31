@@ -31,7 +31,7 @@
 		<%@ include file="../include/top.jsp"%>
 		
 		<div id="main_visual">
-		<a href="/product/sub01.jsp"><img src="../images/main_image_01.jpg" /></a><a href="/product/sub01_02.jsp"><img src="../images/main_image_02.jpg" /></a><a href="/product/sub01_03.jsp"><img src="../images/main_image_03.jpg" /></a><a href="/product/sub02.jsp"><img src="../images/main_image_04.jpg" /></a>
+		<a href="../product/sub01.jsp"><img src="../images/main_image_01.jpg" /></a><a href="../product/sub01_02.jsp"><img src="../images/main_image_02.jpg" /></a><a href="../product/sub01_03.jsp"><img src="../images/main_image_03.jpg" /></a><a href="../product/sub02.jsp"><img src="../images/main_image_04.jpg" /></a>
 		</div>
 
 		<div class="main_contents">
@@ -65,7 +65,7 @@
 					 
 					<!-- 로그인 후 -->
 <% } else { %>
-					<p style="padding:10px 0px 10px 10px"><span style="font-weight:bold; color:#333;"><%=session.getAttribute("USER_NAME") %> 회원님,</span> 반갑습니다.<br />로그인 하셨습니다.</p>
+					<p style="padding:10px 0px 10px 10px"><span style="font-weight:bold; color:#333;"><%=session.getAttribute("USER_NAME") %> 회원님,</span> 반갑습니다.<br /> 환영합니다^^*</p>
 					<p style="text-align:right; padding-right:10px;">
 						<a href=""><img src="../images/login_btn04.gif" /></a>
 						<a href="../member/logout.jsp"><img src="../images/login_btn05.gif" /></a>
@@ -74,7 +74,7 @@
 				</div>
 			</div>
 			<div class="main_con_center">
-				<p class="main_title"><img src="../images/main_title02.gif" alt="공지사항 NOTICE" /><a href="/space/sub01.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
+				<p class="main_title"><img src="../images/main_title02.gif" alt="공지사항 NOTICE" /><a href="../space/sub01.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_board_list">
 					<li><p><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></p></li>
 					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
@@ -83,10 +83,10 @@
 				</ul>
 			</div>
 			<div class="main_con_right">
-				<p class="main_title"><img src="../images/main_title03.gif" alt="자유게시판 FREE BOARD" /><a href="/space/sub03.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
+				<p class="main_title"><img src="../images/main_title03.gif" alt="자유게시판 FREE BOARD" /><a href="../space/sub03.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_board_list">
 					<li><p><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></p></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지마포 구립 장애인 직업재활센터 홈페이지마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
+					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
 					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
 					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
 				</ul>
@@ -192,7 +192,7 @@
 				</div>
 			</div>
 			<div class="main_con_right">
-				<p class="main_title"><img src="../images/main_title06.gif" alt="사진게시판 PHOTO BOARD" /><a href="/space/sub04.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
+				<p class="main_title"><img src="../images/main_title06.gif" alt="사진게시판 PHOTO BOARD" /><a href="../space/sub04.jsp"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_photo_list">
 					<li>
 						<dl>

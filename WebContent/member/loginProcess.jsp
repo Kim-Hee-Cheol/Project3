@@ -1,6 +1,5 @@
 <%@page import="model.MembershipDAO"%>
 <%@page import="java.util.Map"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -27,7 +26,6 @@
       session.setAttribute("USER_NAME", membershipinfo.get("name"));
       
       out.println("<script>");
-      out.println("alert('로그인 되었습니다.')");
       out.println("location.href='../main/main.jsp'");
       out.println("</script>");
       /*

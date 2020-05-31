@@ -158,5 +158,24 @@ public class MembershipDAO {
 			}
 			return maps;
 		}
+		
+		public boolean confirmId(String user_id) {
+			boolean result =false;
+			try {
+				String query = "SELECT user_id FROM membership WHERE user_id=?";
+				psmt = con.prepareStatement(query);
+				psmt.setString(1,user_id);
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					result = true;
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
+		
 }
 
