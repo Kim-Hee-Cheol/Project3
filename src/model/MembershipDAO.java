@@ -124,58 +124,119 @@ public class MembershipDAO {
 		return dto;
 	}
 	
-	
-		//Map 컬렉션에 회원정보 저장 후 반환받기
-		public Map<String, String> getMembershipMap(String id, String pwd) {
-			
-			Map<String, String> maps = new HashMap<String, String>();
-			
-			String query = "SELECT user_id, user_pw, name FROM  "
-					+ " membership WHERE user_id=? AND user_pw=?";
-			try {
-				//prepared객체 생성
-				psmt = con.prepareStatement(query);
-				//쿼리문의 인파라미터 설정
-				psmt.setString(1, id);
-				psmt.setString(2, pwd);
-				//오라클로 쿼리전송 및 결과셋(ResultSet) 반환받음
-				rs = psmt.executeQuery();
-				//오라클이 반환해준 ResultSet이 있는지 확인
-				if(rs.next()) {
-					//true를 반환했다면 결과셋 있음
-					maps.put("user_id",rs.getString(1));
-					maps.put("user_pw",rs.getString(2));
-					maps.put("name",rs.getString("name"));
-				}
-				else {
-					//false를 반환했다면 결과셋 없음
-					System.out.println("결과셋이 없습니다.");
-				}
-			}
-			catch(Exception e) {
-				System.out.println("getMemberMap오류");
-				e.printStackTrace();
-			}
-			return maps;
-		}
+	//Map 컬렉션에 회원정보 저장 후 반환받기
+	public Map<String, String> getMembershipMap(String id, String pwd) {
 		
-		public boolean confirmId(String user_id) {
-			boolean result =false;
-			try {
-				String query = "SELECT user_id FROM membership WHERE user_id=?";
-				psmt = con.prepareStatement(query);
-				psmt.setString(1,user_id);
-				rs = psmt.executeQuery();
-				if(rs.next()) {
-					result = true;
-				}
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		String query = "SELECT user_id, user_pw, name FROM  "
+				+ " membership WHERE user_id=? AND user_pw=?";
+		try {
+			//prepared객체 생성
+			psmt = con.prepareStatement(query);
+			//쿼리문의 인파라미터 설정
+			psmt.setString(1, id);
+			psmt.setString(2, pwd);
+			//오라클로 쿼리전송 및 결과셋(ResultSet) 반환받음
+			rs = psmt.executeQuery();
+			//오라클이 반환해준 ResultSet이 있는지 확인
+			if(rs.next()) {
+				//true를 반환했다면 결과셋 있음
+				maps.put("user_id",rs.getString(1));
+				maps.put("user_pw",rs.getString(2));
+				maps.put("name",rs.getString("name"));
 			}
-			catch(Exception e) {
-				e.printStackTrace();
+			else {
+				//false를 반환했다면 결과셋 없음
+				System.out.println("결과셋이 없습니다.");
 			}
-			return result;
 		}
+		catch(Exception e) {
+			System.out.println("getMemberMap오류");
+			e.printStackTrace();
+		}
+		return maps;
+	}
+		
+	public boolean confirmId(String user_id) {
+		boolean result =false;
+		try {
+			String query = "SELECT user_id FROM membership WHERE user_id=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1,user_id);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Map<String, String> getIdMap(String name, String email){
+		
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		try {
+			String query = "SELECT user_id FROM  "
+				+ " membership WHERE name=? AND email=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1,name);
+			psmt.setString(2,email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				maps.put("user_id",rs.getString("user_id")); //키값과 value값 넣기
+			}
+			else {
+				System.out.println("결과셋이 없습니다..");
+			}	
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return maps;
+	}
+	
+	
+	public Map<String, String> getPwMap(String user_id, String name, String email) {
+		
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		try {
+			String query = "SELECT user_pw FROM  "
+				+ " membership WHERE user_id=? AND name=? AND email=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, user_id);
+			psmt.setString(2, name);
+			psmt.setString(3, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				maps.put("user_pw",rs.getString("user_pw"));
+			}
+			else {
+				System.out.println("결과셋이 없습니다..");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return maps;
+	}
 		
 		
 }
+
+
+
+
+
+
+
+
+
+
 

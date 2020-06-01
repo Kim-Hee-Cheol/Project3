@@ -46,14 +46,12 @@
 						<input type ="image" src="../images/login_btn.gif" class="login_btn01"/>
 					</div>
 				</form>
-				
 				<p style="text-align:center; margin-bottom:50px;"><a href="id_pw.jsp"><img src="../images/login_btn02.gif" alt="아이디/패스워드찾기" /></a>&nbsp;
 				<a href="join01.jsp"><img src="../images/login_btn03.gif" alt="회원가입" /></a></p>
 			</div>
 		</div>
 		<%@ include file="../include/quick.jsp" %>
 	</div>
-	
 	<%@ include file="../include/footer.jsp" %>
 	
 	<% } %>
