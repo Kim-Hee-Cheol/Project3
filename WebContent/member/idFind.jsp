@@ -7,27 +7,31 @@
 request.setCharacterEncoding("UTF-8");
 String name1 = request.getParameter("name1");
 String email1 = request.getParameter("email1");
-System.out.println("email:"+email1);
-System.out.println("name1:"+name1);
 
 MembershipDAO dao = new MembershipDAO(application);
 Map<String, String> membershipinfo = dao.getIdMap(name1,email1);
-
-
 
 if(membershipinfo.get("user_id")!= null) {
 %>
 <script>
 	
-</script>	
-<%
-}
-else {
-%>
-<script>
-alert("회원정보가 없습니다");
-	history.go(-1);
 </script>
-<%
-}
+<%	
+} else {
 %>
+
+<% } %>
+
+<script>
+function zipClose(){
+	self.close();
+}
+</script>
+
+<body>
+	<p style="text-align:center;">
+        <button onclick="zipClose();">창닫기</button>
+    </p>
+</body>
+
+

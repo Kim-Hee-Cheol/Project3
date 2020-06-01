@@ -8,11 +8,12 @@
    
 <%
 request.setCharacterEncoding("UTF-8");
-String name = request.getParameter("name");
-String email = request.getParameter("email");
+String name2 = request.getParameter("name2");
+String email2 = request.getParameter("email2");
 String user_id = request.getParameter("user_id");
 
 MembershipDAO dao = new MembershipDAO(application);
+Map<String, String> membershipinfo = dao.getPwMap(user_id,name2,email2);
 
 SMTPAuth smtp = new SMTPAuth();
 Map<String,String> emailContent = new HashMap<String,String>();

@@ -231,7 +231,6 @@ function id_check_person(frm){
 		return false;
 	}
     else{
-        //중복확창을 띄울 때 입력한 아이디를 파라미터로 전달한다.
         window.open("idOverlap.jsp?user_id="+frm.user_id.value,
                 "idover", "width=500, height=300, left=" + leftVar + ", top =" + topVar);
     }

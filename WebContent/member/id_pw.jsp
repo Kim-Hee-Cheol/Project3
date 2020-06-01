@@ -5,6 +5,11 @@
 <body>
 <script>
 function idFind(frm){
+	var s_width = window.screen.width;
+    var s_height = window.screen.height;
+    var leftVar = (s_width/2) - (500/2);
+    var topVar = (s_height/2) - (300/2);
+	
 	if(!frm.name1.value){
 		alert("이름을 입력하세요");
 		frm.name1.focus();
@@ -14,6 +19,10 @@ function idFind(frm){
 		alert("이메일을 입력하세요");
 		frm.email1.focus();
 		return false;
+	}
+	else{
+	window.open("idFind.jsp",
+           "idFind", "width=500, height=300, left=" + leftVar + ", top =" + topVar);
 	}
 }
 
