@@ -13,12 +13,12 @@ System.out.println("name1:"+name1);
 MembershipDAO dao = new MembershipDAO(application);
 Map<String, String> membershipinfo = dao.getIdMap(name1,email1);
 
-System.out.println("result:"+membershipinfo.get("user_id"));
+
 
 if(membershipinfo.get("user_id")!= null) {
 %>
 <script>
-	alert("안녕");
+	
 </script>	
 <%
 }
