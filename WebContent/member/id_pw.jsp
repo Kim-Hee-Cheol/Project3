@@ -9,6 +9,11 @@ function idFind(){
     var name1 = document.getElementById("name1");
     var email1 = document.getElementById("email1");
     
+    var s_width = window.screen.width;
+    var s_height = window.screen.height;
+    var leftVar = (s_width/2) - (500/2);
+    var topVar = (s_height/2) - (300/2);
+    
 	if(name1.value==""){
 		alert("이름을 입력하세요");
 		name1.focus();
@@ -19,7 +24,8 @@ function idFind(){
 		email1.focus();
 		return false;
 	}
-	window.open("idFind.jsp?name1="+ name1.value+"&email1="+ email1.value, "", "width=500,height=600");
+	window.open("idFind.jsp?name1="+ name1.value+"&email1="+ email1.value, "",  
+			"width=500, height=300, left=" + leftVar + ", top =" + topVar);
 	
 }
 
@@ -28,6 +34,11 @@ function pwdFind(){
 	var user_id = document.getElementById("user_id");
     var name2 = document.getElementById("name2");
     var email2 = document.getElementById("email2");
+    
+    var s_width = window.screen.width;
+    var s_height = window.screen.height;
+    var leftVar = (s_width/2) - (500/2);
+    var topVar = (s_height/2) - (300/2);
     
 	if(user_id.value==""){
 		alert("아이디를 입력하세요");
@@ -44,7 +55,8 @@ function pwdFind(){
 		email2.focus();
 		return false;
 	}
-	window.open("pwFind.jsp?user_id="+user_id.value+"&name2="+ name2.value+"&email2="+ email2.value, "", "width=600,height=400");
+	window.open("pwFind.jsp?user_id="+user_id.value+"&name2="+ name2.value+"&email2="+ email2.value, "",
+			"width=600, height=300, left=" + leftVar + ", top =" + topVar);
 }
 </script> 
 	<center>

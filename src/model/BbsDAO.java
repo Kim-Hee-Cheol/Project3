@@ -57,15 +57,16 @@ public class BbsDAO {
 		int affected = 0;
 		try {
 			String query = "INSERT INTO multi_board ("
-				+ " title,content,id,postdate,visitcount,ofile,sfile,bname) "
+				+ " title,content,user_id,postdate,visitcount,bname) "
 				+ " VALUES ( "
-				+ " ?, ?, ?, ?, 0, ?, ?, ?)";
+				+ " ?, ?, ?, ?, 0, ?)";
 			
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
-			psmt.setString(3, dto.getId());
-			psmt.setString(4, dto.getBname());
+			psmt.setString(3, dto.getUser_id());
+			psmt.setDate(4, dto.getPostDate());
+			psmt.setString(5, dto.getBname());
 			
 			affected = psmt.executeUpdate();
 		}
@@ -97,7 +98,7 @@ public class BbsDAO {
 		int totalCount = 0;
 		
 		//기본 쿼리문(전체레코드를 대상으로 함)
-		String query = "SELECT COUNT(*) FROM board"
+		String query = "SELECT COUNT(*) FROM multi_board"
 				+ " WHERE bname='"+ map.get("bname")+"'";
 		
 		//JSP페이지에서 검색어를 입력한 경우 where절이 동적으로 추가됨.
@@ -127,7 +128,7 @@ public class BbsDAO {
 		
 		List<BbsDTO> bbs = new Vector<BbsDTO>();
 		//기본쿼리문
-		String query = "SELECT * FROM board";
+		String query = "SELECT * FROM multi_board";
 		
 		//검색어가 있는 경우 조건절 동적 추가
 		if(map.get("Word")!=null){
@@ -148,8 +149,8 @@ public class BbsDAO {
 				dto.setNum(rs.getString(1));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString(3));
+				dto.setUser_id(rs.getString("user_id"));
 				dto.setPostDate(rs.getDate("postdate"));
-				dto.setId(rs.getString("id"));
 				dto.setVisitcount(rs.getString(6));
 				
 				//저장된 DTO객체를 List컬렉션에 추가

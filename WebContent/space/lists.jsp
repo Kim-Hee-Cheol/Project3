@@ -22,6 +22,15 @@ BbsDAO dao = new BbsDAO(drv, url);
 
 Map<String,Object> param = new HashMap<String,Object>();
 
+//필수파라미터인 bname을 DAO로 전달하기위해 Map컬렉션에 저장한다.
+param.put("bname",bname);
+
+//폼값을 받아서 파라미터를 저장할 변수 생성
+String queryStr = ""; //검색 시 페이지번호로 쿼리스트링을 넘겨주기 위한 용도
+
+//필수 파라미터에 대한 쿼리스트링 처리
+queryStr = "bname="+ bname+"&";
+
 //검색어 입력시 전송된 폼값을 받아 Map에 저장
 String searchColumn = request.getParameter("searchColumn");
 String searchWord = request.getParameter("searchWord");
@@ -33,6 +42,36 @@ if(searchWord!=null){
 
 //Board테이블에 입력된 전체레코드 갯수를 카운트하여 반환받음
 int totalRecordCount = dao.getTotalRecordCount(param);
+/* 페이지처리 start */
+//web.xml의 초기화 파라미어 가져와서 정수로 변경 후 저장
+int pageSize =
+Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+int blockPage = 
+Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
+
+//전체페이지수 계산 => 105개 / 10 => 10.5 => ceil(10.5) => 11
+int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+
+/*
+현재페이지번호 : 파라미터가 없을 때는 무조건 1페이지로 지정하고. 있을 때는 해당 값을
+	얻어와서 지정한다. 즉 리스트에 처음 진입했을 때 1페이지가 된다.
+*/
+int nowPage = (request.getParameter("nowPage")==null
+				|| request.getParameter("nowPage").equals(""))
+	? 1 : Integer.parseInt(request.getParameter("nowPage"));
+
+
+//MariaDB를 통해 한페이지에 출력할 게시물의 범위를 결정한다.
+//limit의 첫번째 인자 : 시작인덱스
+int start = (nowPage-1)*pageSize;
+//limit의 두번째 인자 : 가져올 레코드의 갯수
+int end = pageSize;
+
+
+//게시물의 범위를 Map컬력션에 저장하고 DAO로 전달한다.
+param.put("start", start);
+param.put("end", end);
+/* 페이지처리 end */
 
 //조건에 맞는 레코드를 select하여 결과셋을 List컬렉션으로 반환받음
 List<BbsDTO> bbs = dao.selectList(param);
@@ -106,17 +145,50 @@ dao.close();
 				</tr>
 				</thead>				
 				<tbody>
-
+				<%
+				//List컬렉션에 입력된 데이터가 없을 때 true를 반환.
+				if(bbs.isEmpty()){
+				%>		
 				<tr>
 					<td colspan="6" align="center" height="100">
 						등록된 게시물이 없습니다.
 					</td>
 				</tr>
-
+				<%
+				}
+				else {
+					//게시물의 가상번호로 사용할 변수
+					int vNum = 0;
+					int countNum = 0;
+					/*
+					컬렉션에 이력된 데이터가 있다면 저장된 BbsDTO의 갯수만큼
+					즉, DB가 반환해준 레코드의 갯수만큼 반복하면서 출력한다.
+					*/
+					for(BbsDTO dto : bbs){
+						//전체 레코드수를 이용하여 하나씩 차감하면서 가상번호 부여
+						vNum = totalRecordCount -
+								(((nowPage-1)*pageSize)+countNum++);
+				%>
+				<!-- 리스트반복 start-->
+				<tr>
+					<td class="text-center"><%=vNum %></td>
+					<td class="text-left">
+						<a href="BoardView.jsp?num=<%=dto.getNum() %>
+							&nowPage=<%=nowPage%>&<%=queryStr%>">
+						 	<%=dto.getTitle() %></a></td>
+					<td class="text-center"><%=dto.getUser_id() %></td>
+					<td class="text-center"><%=dto.getPostDate() %></td>
+					<td class="text-center"><%=dto.getVisitcount() %></td>
+					<!-- <td class="text-center"><i class="material-icons" style="font-size:20px">attach_file</i></td> -->
+				</tr>
+				<!-- 리스트반복 end -->
+				<%
+					}
+				}	
+				%>	
 				</tbody>
 				</table>
-	
-</div>
+			</div>
 			<div class="row">
 				<div class="col text-right">
 				<%-- 자유게시판과 질문과 답변에서만 글쓰기버튼 보임처리 --%>

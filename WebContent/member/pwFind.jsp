@@ -35,11 +35,11 @@ if(pw!=null){
 	}
 %>
 <body>
-	<h2>회원님의 이메일로 비밀번호가 전송되었습니다.</h2> 
+	<h2 align="center">회원님의 이메일로 비밀번호가 전송되었습니다.</h2> 
 <%
 } else {
 %>
-	<h2>회원정보가 없습니다.</h2> 
+	<h2 align="center">회원정보가 없습니다.</h2> 
 <% } %>
 <script>
 function zipClose(){

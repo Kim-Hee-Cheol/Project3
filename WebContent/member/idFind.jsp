@@ -16,11 +16,12 @@ if(id!= null) {
 	System.out.println(id);
 %>
 <body>
-	<h2>아이디는 : <%=id %></h2> 
+	
+	<h2 align="center">회원님의 아이디는 <%=id %>입니다.</h2> 
 <%
 } else {
 %>
-	<h2>회원정보가 없습니다.</h2> 
+	<h2 align="center">회원정보가 없습니다.</h2> 
 <% } %>
 <script>
 function zipClose(){
