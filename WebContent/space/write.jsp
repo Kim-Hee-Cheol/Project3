@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/global_head.jsp" %>
-
+<%@ include file="isFlag.jsp" %>
 
  <body>
 	<center>
@@ -16,8 +16,8 @@
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
-					<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+					<img src="../images/space/<%=boardTitle %>.gif" alt="공지사항" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;<%=boardTitle %><p>
 				</div>
 				<div>
 
@@ -78,11 +78,12 @@
 
 <div class="row text-center" style="">
 	<!-- 각종 버튼 부분 -->
-	
-	<button type="submit" class="btn btn-danger">전송하기</button>
-	<button type="reset" class="btn">Reset</button>
-	<button type="button" class="btn btn-warning" 
-		onclick="location.href='ListSkin.jsp';">리스트보기</button>
+
+	<button type="button" class="btn btn-secondary">수정하기</button>
+	<button type="button" class="btn btn-success">삭제하기</button>
+	<button type="button" class="btn btn-warning">리스트보기</button>
+	<button type="button" class="btn btn-danger">전송하기</button>
+	<button type="button" class="btn btn-dark">Reset</button>
 </div>
 </form> 
 

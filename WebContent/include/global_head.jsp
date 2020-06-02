@@ -11,6 +11,8 @@
 @import url("../css/sub.css");
 </style>
 
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link href="../bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="../bootstrap-4.4.1/jquery/jquery-3.5.1.min.js"></script>		
 <script src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>

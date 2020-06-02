@@ -4,48 +4,51 @@
 
 <body>
 <script>
-function idFind(frm){
-	var s_width = window.screen.width;
-    var s_height = window.screen.height;
-    var leftVar = (s_width/2) - (500/2);
-    var topVar = (s_height/2) - (300/2);
+function idFind(){
 	
-	if(!frm.name1.value){
+    var name1 = document.getElementById("name1");
+    var email1 = document.getElementById("email1");
+    
+	if(name1.value==""){
 		alert("이름을 입력하세요");
-		frm.name1.focus();
+		name1.focus();
 		return false;
 	}
-	if(frm.email1.value==""){
+	if(email1.value==""){
 		alert("이메일을 입력하세요");
-		frm.email1.focus();
+		email1.focus();
 		return false;
 	}
-	else{
-	window.open("idFind.jsp",
-           "idFind", "width=500, height=300, left=" + leftVar + ", top =" + topVar);
-	}
+	window.open("idFind.jsp?name1="+ name1.value+"&email1="+ email1.value, "", "width=500,height=600");
+	
 }
 
-function pwdFind(frm){
-	if(!frm.user_id.value){
+function pwdFind(){
+	
+	var user_id = document.getElementById("user_id");
+    var name2 = document.getElementById("name2");
+    var email2 = document.getElementById("email2");
+    
+	if(user_id.value==""){
 		alert("아이디를 입력하세요");
-		frm.user_id.focus();
+		user_id.focus();
 		return false;
 	}
-	if(!frm.name2.value){
+	if(name2.value==""){
 		alert("이름을 입력하세요");
-		frm.name2.focus();
+		name2.focus();
 		return false;
 	}
-	if(!frm.email2.value){
+	if(email2.value==""){
 		alert("이메일을 입력하세요");
-		frm.email2.focus();
+		email2.focus();
 		return false;
 	}
+	window.open("pwFind.jsp?user_id="+user_id.value+"&name2="+ name2.value+"&email2="+ email2.value, "", "width=600,height=400");
 }
 </script> 
-	
-	<div id="wrap" align="center">
+	<center>
+	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 		<img src="../images/member/sub_image.jpg" id="main_visual" />
 		<div class="contents_box">
@@ -59,27 +62,26 @@ function pwdFind(frm){
 				</div>
 				
 				<div class="idpw_box">
-				
 					<div class="id_box">
-						<form action="idFind.jsp" method="post" name="idfindFrm" onsubmit="return idFind(this);">
-							<ul>
-								<li><input type="text" name="name1" value="" class="login_input01" /></li>
-								<li><input type="text" name="email1" value="" class="login_input01" /></li>
-							</ul>
-							<input type="image" src="../images/member/id_btn01.gif" class="id_btn" />
- 						</form>
+						<ul>
+							<li><input type="text" id="name1" name="name1" value="" class="login_input01" /></li>
+							<li><input type="text" id="email1" name="email1" value="" class="login_input01" /></li>
+						</ul>
+						<input type="image" src="../images/member/id_btn01.gif" class="id_btn" onclick="idFind();" />
+ 						
 						<a href="./join01.jsp"><img src="../images/login_btn03.gif" class="id_btn02" /></a>
 					</div>
 					
 					<div class="pw_box">
-						<form action="pwFind.jsp" method="post" name="pwfindFrm" onsubmit="return pwdFind(this);">
-							<ul>
-								<li><input type="text" name="user_id" value="" class="login_input01" /></li>
-								<li><input type="text" name="name2" value="" class="login_input01" /></li>
-								<li><input type="text" name="email2" value="" class="login_input01" /></li>
-							</ul>
-							<input type="image" src="../images/member/id_btn01.gif" class="pw_btn" />
-						</form>
+						<ul>
+							<li><input type="text" id="user_id" name="user_id" value="" class="login_input01" /></li>
+							<li><input type="text" id="name2" name="name2" value="" class="login_input01" /></li>
+							<li><input type="text" id="email2" name="email2" value="" class="login_input01" /></li>
+							<li><input type="hidden"  name="to" value="" class="login_input01" /></li>
+							<li><input type="hidden"  name="subject2" value="비밀번호를 확인하세요" class="login_input01" /></li>
+							
+						</ul>
+						<input type="image" src="../images/member/id_btn01.gif" class="pw_btn" onclick="pwdFind();"/>
 					</div>
 				</div>
 			</div>
@@ -87,7 +89,7 @@ function pwdFind(frm){
 		<%@ include file="../include/quick.jsp" %>
 	</div>
 	<%@ include file="../include/footer.jsp" %>
-
+	</center>
 </body>
 
 
