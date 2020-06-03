@@ -63,9 +63,8 @@ int nowPage = (request.getParameter("nowPage")==null
 
 //MariaDB를 통해 한페이지에 출력할 게시물의 범위를 결정한다.
 //limit의 첫번째 인자 : 시작인덱스
-int start = (nowPage-1)*pageSize;
-//limit의 두번째 인자 : 가져올 레코드의 갯수
-int end = pageSize;
+int start = (nowPage-1)*pageSize + 1;
+int end = nowPage * pageSize;
 
 
 //게시물의 범위를 Map컬력션에 저장하고 DAO로 전달한다.
@@ -200,7 +199,7 @@ dao.close();
 				<div class="col">
 					
 					<ul class='pagination justify-content-center'>
-						${map.pagingImg }
+						<%=PagingUtil.pagingBS4(totalRecordCount, pageSize, blockPage, nowPage, "lists.jsp?" + queryStr) %>
 					</ul> 
 				</div>				
 			</div>	

@@ -6,11 +6,11 @@ request.setCharacterEncoding("UTF-8");
 
 //멀티게시판 구현을 위하나 파라미터 처리
 String bname = request.getParameter("bname");
-/* if(bname==null || bname.equals("")){
-	//만약 bname의 값이 없다면 로그인 화면으로 강제이동시킨다.
-	JavascriptUtil.jsAlertLocation("로그인은 필수!","../member/login.jsp", out);
-	return;
-}  */
+	if(bname==null || bname.equals("")){
+		//만약 bname의 값이 없다면 로그인 화면으로 강제이동시킨다.
+		JavascriptUtil.jsAlertLocation("로그인은 필수!","../member/login.jsp", out);
+		return;
+} 
 
 String boardTitle = "";
 switch(bname){

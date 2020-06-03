@@ -115,12 +115,15 @@ dao.close();
 				</tr>
 			</tbody>
 			</table>
-				<div class="col text-right" style="">
-					<!-- 각종 버튼 부분 -->
-					<button type="button" class="btn btn-primary" onclick="location.href='edit.jsp?num=<%=dto.getNum()%>&bname=<%=bname%>';">수정하기</button>
-					<button type="button" class="btn btn-success" onclick="isDelete();">삭제하기</button>	
-					<button type="button" class="btn btn-warning" 
-						onclick="location.href='lists.jsp?<%=queryStr%>';">리스트보기</button>
+				<div class="row mb-3">
+					<div class="col text-left" style="">
+						<button type="button" class="btn btn-secondary" onclick="location.href='edit.jsp?num=<%=dto.getNum()%>&bname=<%=bname%>';">수정하기</button>
+						<button type="button" class="btn btn-success" onclick="isDelete();">삭제하기</button>	
+					</div>
+					<div class="col text-right" style="">
+						<button type="button" class="btn btn-warning" 
+							onclick="location.href='lists.jsp?<%=queryStr%>';">리스트보기</button>
+					</div>
 				</div>
 				</form>
 					<form name="deleteFrm">

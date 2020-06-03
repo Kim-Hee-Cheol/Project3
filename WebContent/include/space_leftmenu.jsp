@@ -12,7 +12,7 @@
 	<area shape="rect" alt="" title="" coords="10,48,134,86" href="../space/lists.jsp?bname=schedule" target="" />
 	<area shape="rect" alt="" title="" coords="10,90,134,125" href="../space/lists.jsp?bname=freeboard" target="" />
 	<area shape="rect" alt="" title="" coords="10,132,134,166" href="../space/lists.jsp?bname=photoboard" target="" />
-	<area shape="rect" alt="" title="" coords="10,172,134,207" href="../space/lists.jsp?bname=imformation" target="" />
+	<area shape="rect" alt="" title="" coords="10,172,134,207" href="../space/lists.jsp?bname=information" target="" />
 </map>
 <!-- <ul>
 	<li><a href="../space/sub01.jsp">메뉴1</a></li>
