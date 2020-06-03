@@ -2,7 +2,7 @@
 <%@page import="model.BbsDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- WriteProc.jsp --%>
+<%-- writeProc.jsp --%>
 <%
 //out.print("글쓰기처리:"+ request.getParameter("title"));
 %>
@@ -48,14 +48,3 @@ else{
 <%
 }
 %>
-
-
-
-
-
-
-
-
-
-
-

@@ -57,16 +57,15 @@ public class BbsDAO {
 		int affected = 0;
 		try {
 			String query = "INSERT INTO multi_board ("
-				+ " title,content,user_id,postdate,visitcount,bname) "
+				+ " title,content,user_id,bname) "
 				+ " VALUES ( "
-				+ " ?, ?, ?, ?, 0, ?)";
+				+ " ?, ?, ?, ?)";
 			
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
 			psmt.setString(3, dto.getUser_id());
-			psmt.setDate(4, dto.getPostDate());
-			psmt.setString(5, dto.getBname());
+			psmt.setString(4, dto.getBname());
 			
 			affected = psmt.executeUpdate();
 		}
@@ -149,7 +148,58 @@ public class BbsDAO {
 				dto.setNum(rs.getString(1));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString(3));
+				dto.setPostDate(rs.getDate("postdate"));
 				dto.setUser_id(rs.getString("user_id"));
+				dto.setVisitcount(rs.getString(6));
+				
+				
+				
+				//저장된 DTO객체를 List컬렉션에 추가
+				bbs.add(dto);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Select시 예외발생");
+			e.printStackTrace();
+		}
+		return bbs;
+	}
+	
+	//게시판 리스트 페이지 처리
+	public List<BbsDTO> selectListPage(Map<String, Object> map){
+		
+		List<BbsDTO> bbs = new Vector<BbsDTO>();
+		
+		String query = " "
+				+" SELECT * FROM multi_board WHERE bname='"+map.get("bname")+"'";
+		if(map.get("Word")!=null)
+		{
+			query +=" AND "+ map.get("Column") +" "
+				+" LIKE '%"+ map.get("Word") +"%' ";
+		}
+		query += " ORDER BY num DESC LIMIT ?, ?";
+		
+		System.out.println("쿼리문:"+ query);
+				
+		try {
+			psmt = con.prepareStatement(query);
+			
+			//JSP에서 계산한 페이지 범위값을 이용해 인파라미터를 설정함.
+			/*
+			 setString()으로 인파리미터를 설정하면 문자형이 되므로
+			 여기서는 setInt()를 통해 정수 형태로 설정해야한다.
+			*/
+			psmt.setInt(1, Integer.parseInt(map.get("start").toString()));
+			psmt.setInt(2, Integer.parseInt(map.get("end").toString()));
+			rs = psmt.executeQuery();
+			//오라클이 반환해준 ResultSet의 갯수만큼 반복한다.
+			while(rs.next()) {
+				//하나의 레코드를 DTO객체에 저장하기 위해 새로운 객체생성
+				BbsDTO dto = new BbsDTO();
+				//setter()메소드를 사용하여 컬럼에 데이터 저장
+				dto.setNum(rs.getString(1));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString(3));
 				dto.setPostDate(rs.getDate("postdate"));
 				dto.setVisitcount(rs.getString(6));
 				
@@ -163,6 +213,92 @@ public class BbsDAO {
 		}
 		return bbs;
 	}
+		
+	//일련번호 num에 해당하는 게시물의 조회수 증가
+	public void updateVisitCount(String num) {
+		String query = "UPDATE multi_board SET "
+			+ " visitcount=visitcount+1 "
+			+ " WHERE num=?";
+		System.out.println("조회수증가:"+query);
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			psmt.executeQuery();
+		}
+		catch(Exception e) {
+			System.out.println("조회수 증가시 예외발생");
+			e.printStackTrace();
+		}
+	}
+		
+	public BbsDTO selectView(String num) {
+		BbsDTO dto = new BbsDTO();
+		//기존쿼리문 : member테이블과 join없을 때...
+		//String query = "SELECT * FROM board WHERE num=?";
+		
+		//변경된 쿼리문 : member테이블과 join해여 사용자이름 가져옴.
+		String query = "SELECT B.*,M.name, M.email" + 
+				" FROM membership M inner join multi_board B " + 
+				" ON M.user_id=B.user_id " + 
+				" WHERE num=?";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto.setNum(rs.getString(1));
+				dto.setTitle(rs.getString(2));
+				dto.setContent(rs.getString("content"));
+				dto.setPostDate(rs.getDate("postdate"));
+				dto.setUser_id(rs.getString("user_id"));
+				dto.setVisitcount(rs.getString(6));
+				//테이블 join으로 컬럼추가
+				dto.setName(rs.getString("name"));
+				dto.setEmail(rs.getString("email"));
+			}
+		}
+		catch(Exception e) {
+			System.out.println("상세보기시 예외발생");
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
+	public int updateEdit(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "UPDATE multi_board SET "
+					+ " title=?, content=? "
+					+ " WHERE num=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println("update중 예외발생");
+			e.printStackTrace();
+		}
+		return affected;
+	}
 	
+	//게시물 삭제처리
+	public int delete(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "DELETE FROM multi_board WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			System.out.println("delete중 예외발생");
+			e.printStackTrace();
+		}
+		return affected;
+	}
 }

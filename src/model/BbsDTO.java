@@ -10,6 +10,7 @@ public class BbsDTO {
 	private String visitcount;
 	private String name;
 	private String bname;
+	private String email;
 	
 	public String getBname() {
 		return bname;
@@ -17,6 +18,14 @@ public class BbsDTO {
 
 	public void setBname(String bname) {
 		this.bname = bname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNum() {

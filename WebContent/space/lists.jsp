@@ -102,22 +102,21 @@ dao.close();
 <div class="row text-right" style="margin-bottom:20px;
 		padding-right:50px;">
 <!-- 검색부분 -->
-<form class="form-inline">	
+<form class="form-inline" name="searchFrm" method="get"> 	
 <!-- 검색 시 필수파라미터인 bname이 전달돼야 한다. -->
 	<input type="hidden" name="bname" value="<%=bname %>" />
 	<div class="form-group">
-		<select name="keyField" class="form-control">
-			<option value="">제목</option>
-			<option value="">작성자</option>
-			<option value="">내용</option>
+		<select name="searchColumn" class="form-control">
+			<option value="title">제목</option>
+			<option value="user_id">작성자</option>
+			<option value="content">내용</option>
 		</select>
 	</div>
-	
 	<div class="input-group">
-		<input type="text" name="keyString"  class="form-control"/>
+		<input type="text" name="searchWord"  class="form-control"/>
 		<div class="input-group-btn">
 			<button type="submit" class="btn btn-default">
-				<i class="glyphicon glyphicon-search"></i>
+				<i class="fa fa-search" style=''></i>
 			</button>
 		</div>
 	</div>
@@ -141,7 +140,7 @@ dao.close();
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회수</th>
-					<th>첨부</th>
+					<!-- <th>첨부</th> -->
 				</tr>
 				</thead>				
 				<tbody>
@@ -150,7 +149,7 @@ dao.close();
 				if(bbs.isEmpty()){
 				%>		
 				<tr>
-					<td colspan="6" align="center" height="100">
+					<td colspan="5" align="center" height="100">
 						등록된 게시물이 없습니다.
 					</td>
 				</tr>
@@ -173,7 +172,7 @@ dao.close();
 				<tr>
 					<td class="text-center"><%=vNum %></td>
 					<td class="text-left">
-						<a href="BoardView.jsp?num=<%=dto.getNum() %>
+						 <a href="view.jsp?num=<%=dto.getNum() %>
 							&nowPage=<%=nowPage%>&<%=queryStr%>">
 						 	<%=dto.getTitle() %></a></td>
 					<td class="text-center"><%=dto.getUser_id() %></td>
@@ -191,7 +190,6 @@ dao.close();
 			</div>
 			<div class="row">
 				<div class="col text-right">
-				<%-- 자유게시판과 질문과 답변에서만 글쓰기버튼 보임처리 --%>
 				<% if(bname.equals("freeboard") || bname.equals("photoboard") || bname.equals("information")){ %>
 					<button type="button" class="btn btn-primary"
 						onclick="location.href='write.jsp?bname=<%= bname %>';">글쓰기</button>
