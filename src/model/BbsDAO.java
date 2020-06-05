@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import javax.servlet.ServletContext;
 
+
 public class BbsDAO {
 	
     Connection con;
@@ -75,6 +76,7 @@ public class BbsDAO {
 		}
 		return affected;
 	}
+	
 	//DB자원해제
 	public void close() {
 		try {
@@ -201,6 +203,7 @@ public class BbsDAO {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString(3));
 				dto.setPostDate(rs.getDate("postdate"));
+				dto.setUser_id(rs.getString("user_id"));
 				dto.setVisitcount(rs.getString(6));
 				
 				//저장된 DTO객체를 List컬렉션에 추가

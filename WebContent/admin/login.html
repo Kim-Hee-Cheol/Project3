@@ -25,17 +25,17 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form action="loginProc" name="frm">
+        <form action="memberLoginProc.jsp" name="frm">
           <div class="form-group">
             <div class="form-label-group">
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-              <label for="inputEmail">Email address</label>
+              <input type="text" id="user_id" name="user_id" class="form-control" placeholder="ID" required="required" autofocus="autofocus">
+              <label for="user_id">ID</label>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-              <label for="inputPassword">Password</label>
+              <input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="Password" required="required">
+              <label for="user_pw">Password</label>
             </div>
           </div>
           <div class="form-group">
@@ -46,7 +46,7 @@
               </label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="index.html">Login</a>
+          <input type="submit" class="btn btn-primary btn-block" value="Login" />
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.html">Register an Account</a>

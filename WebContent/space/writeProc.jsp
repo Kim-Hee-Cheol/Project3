@@ -16,11 +16,13 @@ request.setCharacterEncoding("UTF-8");
 //폼값 전송 받기
 String title = request.getParameter("title");//제목
 String content = request.getParameter("content");//내용
+String attachedfile = request.getParameter("attachedfile");//첨부파일
 
 //폼값을 DTO객체에 저장
 BbsDTO dto = new BbsDTO();
 dto.setTitle(title);
 dto.setContent(content);
+dto.setAttachedfile(attachedfile);
 //세션 영역에 저장된 회원인증정보를 가져와서 저장.
 dto.setUser_id(session.getAttribute("USER_ID").toString());
 

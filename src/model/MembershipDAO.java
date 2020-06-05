@@ -201,17 +201,15 @@ public class MembershipDAO {
 	}
 	
 	
-	public Map<String, String> getPwMap(String user_id, String name, String email) {
+	public Map<String, String> getPwMap(String user_id) {
 		
 		Map<String, String> maps = new HashMap<String, String>();
 		
 		try {
 			String query = "SELECT user_pw FROM  "
-				+ " membership WHERE user_id=? AND name=? AND email=?";
+				+ " membership WHERE user_id=?";
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, user_id);
-			psmt.setString(2, name);
-			psmt.setString(3, email);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -223,20 +221,10 @@ public class MembershipDAO {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+			System.out.println("select중 예외발생");
 		}
 		return maps;
 	}
 		
 	
 }
-
-
-
-
-
-
-
-
-
-
-

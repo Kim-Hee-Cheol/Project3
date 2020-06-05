@@ -11,6 +11,7 @@ String bname = request.getParameter("bname");
 		JavascriptUtil.jsAlertLocation("로그인은 필수!","../member/login.jsp", out);
 		return;
 } 
+String grade = request.getParameter("grade");
 
 String boardTitle = "";
 switch(bname){

@@ -29,7 +29,7 @@ function idFind(){
 	
 }
 
-function pwdFind(){
+function pwdFind(frm){
 	
 	var user_id = document.getElementById("user_id");
     var name2 = document.getElementById("name2");
@@ -40,23 +40,21 @@ function pwdFind(){
     var leftVar = (s_width/2) - (500/2);
     var topVar = (s_height/2) - (300/2);
     
-	if(user_id.value==""){
+	if(frm.user_id.value==""){
 		alert("아이디를 입력하세요");
-		user_id.focus();
+		frm.user_id.focus();
 		return false;
 	}
-	if(name2.value==""){
+	if(frm.name2.value==""){
 		alert("이름을 입력하세요");
-		name2.focus();
+		frm.name2.focus();
 		return false;
 	}
-	if(email2.value==""){
+	if(frm.email2.value==""){
 		alert("이메일을 입력하세요");
-		email2.focus();
+		frm.email2.focus();
 		return false;
 	}
-	window.open("pwFind.jsp?user_id="+user_id.value+"&name2="+ name2.value+"&email2="+ email2.value, "",
-			"width=600, height=300, left=" + leftVar + ", top =" + topVar);
 }
 </script> 
 	<center>
@@ -72,7 +70,7 @@ function pwdFind(){
 					<img src="../images/member/id_pw_title.gif" alt="" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;멤버쉽&nbsp;>&nbsp;아이디/비밀번호찾기<p>
 				</div>
-				
+				<form>
 				<div class="idpw_box">
 					<div class="id_box">
 						<ul>
@@ -83,18 +81,19 @@ function pwdFind(){
  						
 						<a href="./join01.jsp"><img src="../images/login_btn03.gif" class="id_btn02" /></a>
 					</div>
-					
+					</form>
+					<form action="pwFind.jsp" onsubmit="return pwdFind(this);" name="frm">
 					<div class="pw_box">
 						<ul>
 							<li><input type="text" id="user_id" name="user_id" value="" class="login_input01" /></li>
 							<li><input type="text" id="name2" name="name2" value="" class="login_input01" /></li>
 							<li><input type="text" id="email2" name="email2" value="" class="login_input01" /></li>
-							<li><input type="hidden"  name="to" value="" class="login_input01" /></li>
-							<li><input type="hidden"  name="subject2" value="비밀번호를 확인하세요" class="login_input01" /></li>
-							
+							<li><input type="hidden"  name="from2" value="qaz3ws@naver.com" class="login_input01" /></li> <!-- 보내는사람 -->
+							<li><input type="hidden"  name="subject" value="비밀번호를 확인하세요" class="login_input01" /></li>
 						</ul>
-						<input type="image" src="../images/member/id_btn01.gif" class="pw_btn" onclick="pwdFind();"/>
+						<input type="image" src="../images/member/id_btn01.gif" class="pw_btn"/>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>

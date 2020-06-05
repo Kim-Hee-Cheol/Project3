@@ -1,3 +1,4 @@
+<%@page import="oracle.net.aso.b"%>
 <%@page import="model.BbsDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="util.PagingUtil"%>
@@ -19,11 +20,15 @@ String url = application.getInitParameter("MariaConnectURL");
 //DAO객체 생성 및 DB커넥션
 BbsDAO dao = new BbsDAO(drv, url);
 
-
+/* 
+파라미터를 저장할 용도로 생성한 Map컬렉션. 여러개의 파라미터가
+있는 경우 한꺼번에 저장한 후 DAO로 전달한것임.
+*/
 Map<String,Object> param = new HashMap<String,Object>();
 
 //필수파라미터인 bname을 DAO로 전달하기위해 Map컬렉션에 저장한다.
 param.put("bname",bname);
+
 
 //폼값을 받아서 파라미터를 저장할 변수 생성
 String queryStr = ""; //검색 시 페이지번호로 쿼리스트링을 넘겨주기 위한 용도
@@ -31,17 +36,21 @@ String queryStr = ""; //검색 시 페이지번호로 쿼리스트링을 넘겨�
 //필수 파라미터에 대한 쿼리스트링 처리
 queryStr = "bname="+ bname+"&";
 
-//검색어 입력시 전송된 폼값을 받아 Map에 저장
+
+//검색어 입력 시 전송된 폼값을 받아 Map에 저장
 String searchColumn = request.getParameter("searchColumn");
 String searchWord = request.getParameter("searchWord");
 if(searchWord!=null){
 	//검색어를 입력한 경우 Map에 값을 입력함.
 	param.put("Column", searchColumn);
 	param.put("Word", searchWord);
+	//검색어가 있을 때 쿼리스트링을 만들어준다.
+	queryStr +="searchColumn="+ searchColumn+"&searchWord="+searchWord+"&";
 }
 
 //Board테이블에 입력된 전체레코드 갯수를 카운트하여 반환받음
 int totalRecordCount = dao.getTotalRecordCount(param);
+
 /* 페이지처리 start */
 //web.xml의 초기화 파라미어 가져와서 정수로 변경 후 저장
 int pageSize =
@@ -63,8 +72,9 @@ int nowPage = (request.getParameter("nowPage")==null
 
 //MariaDB를 통해 한페이지에 출력할 게시물의 범위를 결정한다.
 //limit의 첫번째 인자 : 시작인덱스
-int start = (nowPage-1)*pageSize + 1;
-int end = nowPage * pageSize;
+int start = (nowPage-1)*pageSize;
+//limit의 두번째 인자 : 가져올 레코드의 갯수
+int end = pageSize;
 
 
 //게시물의 범위를 Map컬력션에 저장하고 DAO로 전달한다.
@@ -72,12 +82,12 @@ param.put("start", start);
 param.put("end", end);
 /* 페이지처리 end */
 
+
 //조건에 맞는 레코드를 select하여 결과셋을 List컬렉션으로 반환받음
-List<BbsDTO> bbs = dao.selectList(param);
+List<BbsDTO> bbs = dao.selectListPage(param);
 
 //DB연결해제
 dao.close();
-
 %>
 
 <body>
@@ -133,14 +143,26 @@ dao.close();
 					<col width="60px"/>
 				</colgroup>				
 				<thead>
-				<tr style="background-color: rgb(133, 133, 133); " class="text-center text-white">
+<%
+if(bname.equals("information")){
+%>				
+				<tr style="background-color: #25c7c7; " class="text-center text-white">
 					<th>번호</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회수</th>
-					<!-- <th>첨부</th> -->
+					<th>첨부</th>
 				</tr>
+<%}else {%> 
+				<tr style="background-color: #25c7c7; " class="text-center text-white">
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+<%} %>
 				</thead>				
 				<tbody>
 				<%
@@ -148,7 +170,7 @@ dao.close();
 				if(bbs.isEmpty()){
 				%>		
 				<tr>
-					<td colspan="5" align="center" height="100">
+					<td colspan="6" align="center" height="100">
 						등록된 게시물이 없습니다.
 					</td>
 				</tr>
@@ -189,15 +211,15 @@ dao.close();
 			</div>
 			<div class="row">
 				<div class="col text-right">
-				<% if(bname.equals("freeboard") || bname.equals("photoboard") || bname.equals("information")){ %>
+				 <% if(bname.equals("freeboard") || bname.equals("photoboard") || bname.equals("information")){ %>
 					<button type="button" class="btn btn-primary"
 						onclick="location.href='write.jsp?bname=<%= bname %>';">글쓰기</button>
-				<% } %>
+				 <% } %> 
+				
 				</div>
 			</div>
 			<div class="row mt-3">
 				<div class="col">
-					
 					<ul class='pagination justify-content-center'>
 						<%=PagingUtil.pagingBS4(totalRecordCount, pageSize, blockPage, nowPage, "lists.jsp?" + queryStr) %>
 					</ul> 
@@ -208,7 +230,6 @@ dao.close();
 		</div>
 		<%@ include file="../include/quick.jsp" %>
 	</div>
-
 	<%@ include file="../include/footer.jsp" %>
 	</center>
  </body>

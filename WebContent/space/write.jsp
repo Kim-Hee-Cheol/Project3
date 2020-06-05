@@ -25,7 +25,7 @@ function checkValidate(frm) {
 	if(frm.title.value==""){
 		alert("제목을 입력해주세요");//경고창 띄움
 		frm.title.focus();//입력란으로 포커스 이동
-		return false;//전동되지 않도록 이벤트리스너로 false반환
+		return false;//전송되지 않도록 이벤트리스너로 false반환
 	}
 	if(frm.content.value==""){
 		alert("내용을 입력해주세요");
@@ -56,13 +56,15 @@ function checkValidate(frm) {
 								<textarea rows="10" class="form-control" name="content"></textarea>
 							</td>
 						</tr>
-						<!-- <tr>
+<%if(bname.equals("information")){ %>
+						 <tr>
 							<th class="text-center" 
 								style="vertical-align:middle;">첨부파일</th>
 							<td>
 								<input type="file" class="form-control" />
 							</td>
-						</tr> -->
+						</tr>
+<%} %>
 					</tbody>
 					</table>
 					<div class="col text-right" style="">

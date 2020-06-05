@@ -42,7 +42,7 @@
 %>
 <script type="text/javascript">
 	alert("회원이 되신걸 환영합니다!!");
-	location.href="../main/main.jsp";
+	location.href="../main/main.do";
 </script>
 <% 
 		//response.sendRedirect("../main/main.jsp");   

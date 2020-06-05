@@ -27,6 +27,7 @@ queryStr += "&nowPage="+nowPage;
 
 //폼값 받기 - 파라미터로 전달된 게시물의 일련번호
 String num = request.getParameter("num");
+
 BbsDAO dao = new BbsDAO(application);
 
 //게시물의 조회수 +1증가
@@ -55,78 +56,82 @@ dao.close();
 				</div>
 			<div>
 			<form enctype="multipart/form-data">
-			<table class="table table-bordered">
-			<colgroup>
-				<col width="20%"/>
-				<col width="30%"/>
-				<col width="20%"/>
-				<col width="*"/>
-			</colgroup>
-			<tbody>
-				<tr>
-					<th class="text-center" 
-						style="vertical-align:middle;">작성자</th>
-					<td>
-						<%=dto.getName() %>
-					
-					</td>
-					<th class="text-center" 
-						style="vertical-align:middle;">작성일</th>
-					<td>
-						<%=dto.getPostDate() %>
-					
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center" 
-						style="vertical-align:middle;">이메일</th>
-					<td>
-						<%=dto.getEmail() %>
-					</td>
-					
-					<th class="text-center" 
-						style="vertical-align:middle;">조회수</th>
-					<td>
-						<%=dto.getVisitcount() %>
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center" 
-						style="vertical-align:middle;">제목</th>
-					<td colspan="3">
-						<%=dto.getTitle() %>
-				
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center table-active align-middle"" 
-						style="vertical-align:middle;">내용</th>
-					<td colspan="3">
-						<%=dto.getContent().replace("\r\n","<br/>") %>
-					</td>
-					
-				</tr>
-				<tr>
-					<th class="text-center" 
-						style="vertical-align:middle;">첨부파일</th>
-					<td colspan="3">
+				<table class="table table-bordered">
+				<colgroup>
+					<col width="20%"/>
+					<col width="30%"/>
+					<col width="20%"/>
+					<col width="*"/>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th class="text-center" 
+							style="vertical-align:middle;">작성자</th>
+						<td>
+							<%=dto.getName() %>
+						</td>
+						<th class="text-center" 
+							style="vertical-align:middle;">작성일</th>
+						<td>
+							<%=dto.getPostDate() %>
 						
-					</td>
-				</tr>
-			</tbody>
-			</table>
-				<div class="row mb-3">
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" 
+							style="vertical-align:middle;">이메일</th>
+						<td>
+							<%=dto.getEmail() %>
+						</td>
+						
+						<th class="text-center" 
+							style="vertical-align:middle;">조회수</th>
+						<td>
+							<%=dto.getVisitcount() %>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" 
+							style="vertical-align:middle;">제목</th>
+						<td colspan="3">
+							<%=dto.getTitle() %>
+					
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center table-active align-middle"" 
+							style="vertical-align:middle;">내용</th>
+						<td colspan="3">
+							<%=dto.getContent().replace("\r\n","<br/>") %>
+						</td>
+						
+					</tr>
+					<tr>
+						<th class="text-center" 
+							style="vertical-align:middle;">첨부파일</th>
+						<td colspan="3">
+							
+						</td>
+					</tr>
+				</tbody>
+				</table>
+				<div class="row mb-3">	
 					<div class="col text-left" style="">
+<%
+if(session.getAttribute("USER_ID")!=null &&
+	session.getAttribute("USER_ID").toString().equals(dto.getUser_id())){
+%>
 						<button type="button" class="btn btn-secondary" onclick="location.href='edit.jsp?num=<%=dto.getNum()%>&bname=<%=bname%>';">수정하기</button>
 						<button type="button" class="btn btn-success" onclick="isDelete();">삭제하기</button>	
+<% } %>						
 					</div>
 					<div class="col text-right" style="">
 						<button type="button" class="btn btn-warning" 
 							onclick="location.href='lists.jsp?<%=queryStr%>';">리스트보기</button>
 					</div>
 				</div>
-				</form>
-					<form name="deleteFrm">
+			</form>
+				<form name="deleteFrm">
 					<input type="hidden" name="num" value="<%=dto.getNum() %>"/>
 					<input type="hidden" name="bname" value="<%=bname %>"/>
 				</form>

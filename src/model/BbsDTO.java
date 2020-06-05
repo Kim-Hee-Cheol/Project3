@@ -12,6 +12,7 @@ public class BbsDTO {
 	private String bname;
 	private String email;
 	
+
 	public String getBname() {
 		return bname;
 	}
