@@ -113,6 +113,9 @@ dao.close();
 <!-- 검색부분 -->
 <form class="form-inline" name="searchFrm" method="get"> 	
 <!-- 검색 시 필수파라미터인 bname이 전달돼야 한다. -->
+<%
+if(bname.equals("notice") || bname.equals("freeboard") || bname.equals("information")) {
+%>	
 	<input type="hidden" name="bname" value="<%=bname %>" />
 	<div class="form-group">
 		<select name="searchColumn" class="form-control">
@@ -129,10 +132,14 @@ dao.close();
 			</button>
 		</div>
 	</div>
+<%} %>
 </form>	
 </div>
 <div class="row">
 	<!-- 게시판리스트부분 -->
+<%
+if(bname.equals("notice") || bname.equals("freeboard") || bname.equals("information")) {
+%>	
 	<table class="table table-bordered table-hover">
 				<colgroup>
 					<col width="60px"/>
@@ -143,18 +150,7 @@ dao.close();
 					<col width="60px"/>
 				</colgroup>				
 				<thead>
-<%
-if(bname.equals("information")){
-%>				
-				<tr style="background-color: #25c7c7; " class="text-center text-white">
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<th>첨부</th>
-				</tr>
-<%}else {%> 
+			
 				<tr style="background-color: #25c7c7; " class="text-center text-white">
 					<th>번호</th>
 					<th>제목</th>
@@ -162,7 +158,7 @@ if(bname.equals("information")){
 					<th>작성일</th>
 					<th>조회수</th>
 				</tr>
-<%} %>
+
 				</thead>				
 				<tbody>
 				<%
@@ -170,7 +166,7 @@ if(bname.equals("information")){
 				if(bbs.isEmpty()){
 				%>		
 				<tr>
-					<td colspan="6" align="center" height="100">
+					<td colspan="5" align="center" height="100">
 						등록된 게시물이 없습니다.
 					</td>
 				</tr>
@@ -208,6 +204,7 @@ if(bname.equals("information")){
 				%>	
 				</tbody>
 				</table>
+<% } %>			
 			</div>
 			<div class="row">
 				<div class="col text-right">

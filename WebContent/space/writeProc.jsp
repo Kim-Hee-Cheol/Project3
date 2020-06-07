@@ -22,7 +22,6 @@ String attachedfile = request.getParameter("attachedfile");//첨부파일
 BbsDTO dto = new BbsDTO();
 dto.setTitle(title);
 dto.setContent(content);
-dto.setAttachedfile(attachedfile);
 //세션 영역에 저장된 회원인증정보를 가져와서 저장.
 dto.setUser_id(session.getAttribute("USER_ID").toString());
 
