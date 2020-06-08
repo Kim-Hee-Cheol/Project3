@@ -23,10 +23,6 @@ out.println(from);
 out.println(subject);
 
 
-
-
-
-
 MembershipDAO dao = new MembershipDAO(application);
 Map<String, String> membershipinfo = dao.getPwMap(user_id);
 
@@ -42,6 +38,7 @@ if(membershipinfo.get("user_pw") != null){
 		if(emailResult==true){
 			out.println("<script>");
 			out.println("alert('회원님 이메일로 메일이 발송되었습니다.')");
+			out.println("location.href='id_pw.jsp'");
 			out.println("</script>");
 		}
 		else{
@@ -52,7 +49,6 @@ if(membershipinfo.get("user_pw") != null){
 		return;
 	}
 %>
-
 
 
    

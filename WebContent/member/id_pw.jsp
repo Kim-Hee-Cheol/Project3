@@ -70,7 +70,6 @@ function pwdFind(frm){
 					<img src="../images/member/id_pw_title.gif" alt="" class="con_title" />
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;멤버쉽&nbsp;>&nbsp;아이디/비밀번호찾기<p>
 				</div>
-				<form>
 				<div class="idpw_box">
 					<div class="id_box">
 						<ul>
@@ -81,8 +80,8 @@ function pwdFind(frm){
  						
 						<a href="./join01.jsp"><img src="../images/login_btn03.gif" class="id_btn02" /></a>
 					</div>
-					</form>
-					<form action="pwFind.jsp" onsubmit="return pwdFind(this);" name="frm">
+				</div>
+				<form action="pwFind.jsp" onsubmit="return pwdFind(this);" name="frm">
 					<div class="pw_box">
 						<ul>
 							<li><input type="text" id="user_id" name="user_id" value="" class="login_input01" /></li>
@@ -93,8 +92,7 @@ function pwdFind(frm){
 						</ul>
 						<input type="image" src="../images/member/id_btn01.gif" class="pw_btn"/>
 					</div>
-					</form>
-				</div>
+				</form>
 			</div>
 		</div>
 		<%@ include file="../include/quick.jsp" %>

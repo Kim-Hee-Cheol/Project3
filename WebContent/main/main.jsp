@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,6 +11,81 @@
 @import url("../css/main.css");
 @import url("../css/sub.css");
 </style>
+<!-- <script src="../bootstrap-4.4.1/jquery/jquery-3.5.1.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(function(){
+	//메인페이지를 로드할 때 현재월을 출력하는 달력 가져오기
+	$('#calendar_view').load('../include/Calendar.jsp');
+	
+	//이전달을 콜백받음
+	$('#month_prev').click(function(){
+		var n_year = parseInt($('#now_year').val());
+		var n_month = parseInt($('#now_month').val());
+		
+		if(n_month==0){
+			n_year--;
+			n_month=11;
+		}
+		else{
+			n_month--;
+		}
+		
+		$('#now_year').val(n_year);
+		$('#now_month').val(n_month);
+		$('#calendar_n_view').html(n_year+"년"+(n_month+1)+'월');
+		$.get('../include/Calendar.jsp',
+			{
+				y : n_year,
+				m : n_month
+			},
+			function(d){
+				$('#calendar_view').html(d);
+			}
+		);
+	});
+	//다음달을 콜백받음
+	$('#month_next').click(function(){
+		var n_year = parseInt($('#now_year').val());
+		var n_month = parseInt($('#now_month').val());
+		
+		if(n_month==11){
+			n_year++;
+			n_month=0;
+		}
+		else{
+			n_month++;
+		}
+		$('#now_year').val(n_year);
+		$('#now_month').val(n_month);
+		$('#calendar_n_view').html(n_year+'년'+(n_month+1)+'월');
+		$.ajax({
+			url : "../include/Calendar.jsp",
+			dataType : "html",
+			type : "post",
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			data : {
+				y : n_year, m : n_month
+			},
+			success : function(responseData){
+				$('#calendar_view').html(responseData);
+			},
+			error:function(errorData){
+				alert("오류발생:"+errorData.status+":"
+						+errorData.statusText);
+			}
+		});
+	});
+});
+</script>
+<%
+Calendar nowDay = Calendar.getInstance();
+int now_year = nowDay.get(Calendar.YEAR);
+int now_month = nowDay.get(Calendar.MONTH);
+%>
+<input type="hidden" id="now_year" value="<%=now_year%>"/>
+<!-- Calendar클래스의 월은 0~11까지 표현된다. -->
+<input type="hidden" id="now_month" value="<%=now_month%>"/>
 </head>
 <body>
 	<script>
@@ -108,14 +184,22 @@
 							<col width="13px;" />
 						</colgroup>
 						<tr>
-							<td><a href=""><img src="../images/cal_a01.gif" style="margin-top:3px;" /></a></td>
-							<td><img src="../images/calender_2012.gif" />&nbsp;&nbsp;<img src="../images/calender_m1.gif" /></td>
-							<td><a href=""><img src="../images/cal_a02.gif" style="margin-top:3px;" /></a></td>
+							<!-- 이전달 보기 -->
+							<td><img src="../images/cal_a01.gif" style="margin-top:3px; cursor:pointer;" id="month_prev"
+										/></td>
+							<!-- 년/월 표시 -->
+							<td style="font-weight:bold; font-size:24px;" id="calendar_n_view">
+								2020년 06월
+							</td>
+							<!-- 다음달 보기 -->
+							<td><img src="../images/cal_a02.gif" style="margin-top:3px; cursor:pointer;" id="month_next"
+										/></td>
 						</tr>
 					</table>
 				</div>
-				<div class="cal_bottom">
-					<table cellpadding="0" cellspacing="0" border="0" class="calendar">
+				<div class="cal_bottom" id="calendar_view">
+					<!-- 실제 달력이 출력되는 영역 -->
+					<!-- <table cellpadding="0" cellspacing="0" border="0" class="calendar">
 						<colgroup>
 							<col width="14%" />
 							<col width="14%" />
@@ -188,7 +272,7 @@
 							<td><a href="">&nbsp;</a></td>
 							<td><a href="">&nbsp;</a></td>
 						</tr>
-					</table>
+					</table> -->
 				</div>
 			</div>
 			<div class="main_con_right">
